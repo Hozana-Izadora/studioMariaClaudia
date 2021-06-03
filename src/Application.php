@@ -44,8 +44,10 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
-        // Call parent to load bootstrap from files.
         parent::bootstrap();
+        $this->addPlugin('CakeLte');
+
+        // Call parent to load bootstrap from files.
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();

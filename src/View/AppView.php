@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,9 +14,11 @@ declare(strict_types=1);
  * @since     3.0.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\View;
 
 use Cake\View\View;
+use CakeLte\View\CakeLteTrait;
 
 /**
  * Application View
@@ -35,7 +38,17 @@ class AppView extends View
      *
      * @return void
      */
+    use CakeLteTrait;
+    public $layout = 'CakeLte.default';
     public function initialize(): void
     {
+
+        parent::initialize();
+        $this->initializeCakeLte(
+            $options =  [
+                'appName' => 'Cake<b>LTE</b>', // [string] default='Cake<b>LTE</b>'
+                'appLogo' => 'CakeLte.cake.icon.png', // [string] default='CakeLte.cake.icon.png'
+            ]
+        );
     }
 }
