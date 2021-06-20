@@ -46,11 +46,11 @@ class ClientsFixture extends TestFixture
                 'id' => 1,
                 'client_name' => 'Lorem ipsum dolor sit amet',
                 'client_cpf' => 'Lorem ipsum dolor ',
-                'client_birth' => '2021-06-03',
+                'client_birth' => '2021-06-05',
                 'client_phone' => 'Lorem ipsum d',
                 'client_email' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-06-03',
-                'modified' => '2021-06-03',
+                'created' => '2021-06-05',
+                'modified' => '2021-06-05',
             ],
         ];
         parent::init();

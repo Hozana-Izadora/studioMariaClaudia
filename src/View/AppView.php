@@ -46,8 +46,8 @@ class AppView extends View
         parent::initialize();
         $this->initializeCakeLte(
             $options =  [
-                'appName' => 'Cake<b>LTE</b>', // [string] default='Cake<b>LTE</b>'
-                'appLogo' => 'CakeLte.cake.icon.png', // [string] default='CakeLte.cake.icon.png'
+                'appName' => 'Maria Cláudia Studio', // [string] default='Cake<b>LTE</b>'
+                // 'appLogo' => 'CakeLte.cake.icon.png', // [string] default='CakeLte.cake.icon.png'
             ]
         );
     }

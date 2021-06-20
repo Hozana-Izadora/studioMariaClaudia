@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 
 /**
  * User Entity
@@ -27,14 +29,21 @@ class User extends Entity
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
      * @var array
-     */
+     */   
     protected $_accessible = [
         'user_name' => true,
         'user_cpf' => true,
         'user_phone' => true,
-        'user_email' => true,
-        'user_password' => true,
+        'email' => true,
+        'password' => true,
         'modified' => true,
         'created' => true,
     ];
+
+     // Automatically hash passwords when they are changed.
+    protected function _setPassword(string $password)
+    {
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->hash($password);
+    }
 }
