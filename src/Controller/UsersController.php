@@ -27,11 +27,11 @@ class UsersController extends AppController
         // exit;
         // If the user is logged in send them away.
         if ($result->isValid()) {
-            $target = $this->Authentication->getLoginRedirect() ?? '/Clients';
+            $target = $this->Authentication->getLoginRedirect() ?? '/ ';
             return $this->redirect($target);
         }
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Invalid username or password');
+            $this->Flash->error('Nome ou senha inválidos!');
 
         }
     }
