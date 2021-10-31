@@ -4,28 +4,40 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Add User') ?></legend>
-                <?php
-                    echo $this->Form->control('user_name');
-                    echo $this->Form->control('user_cpf');
-                    echo $this->Form->control('user_phone');
-                    echo $this->Form->control('user_email');
-                    echo $this->Form->control('user_password');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
+
+<?php $this->assign('title', __('Add User') ); ?>
+
+<?php
+$this->assign('breadcrumb',
+  $this->element('content/breadcrumb', [
+    'home' => true,
+    'breadcrumb' => [
+      'List Users' => ['action'=>'index'],
+      'Add',
+    ]
+  ])
+);
+?>
+
+
+<div class="card card-primary card-outline">
+  <?= $this->Form->create($user) ?>
+  <div class="card-body">
+    <?php
+      echo $this->Form->control('user_name');
+      echo $this->Form->control('user_cpf');
+      echo $this->Form->control('user_phone');
+      echo $this->Form->control('email',['type'=>'email']);
+      echo $this->Form->control('password',['type'=>'password']);
+    ?>
+  </div>
+
+  <div class="card-footer d-flex">
+    <div class="ml-auto">
+      <?= $this->Form->button(__('Save')) ?>
+      <?= $this->Html->link(__('Cancel'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
     </div>
+  </div>
+
+  <?= $this->Form->end() ?>
 </div>

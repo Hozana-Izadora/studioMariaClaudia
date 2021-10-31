@@ -49,8 +49,8 @@ class UsersFixture extends TestFixture
                 'user_phone' => 'Lorem ipsum d',
                 'user_email' => 'Lorem ipsum dolor sit amet',
                 'user_password' => 'Lorem ipsum dolor sit amet',
-                'modified' => '2021-06-03',
-                'created' => '2021-06-03',
+                'modified' => '2021-06-19',
+                'created' => '2021-06-19',
             ],
         ];
         parent::init();

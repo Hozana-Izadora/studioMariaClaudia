@@ -41,8 +41,8 @@ class ServicesFixture extends TestFixture
             [
                 'id' => 1,
                 'service_name' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-06-03 15:51:29',
-                'modified' => '2021-06-03 15:51:29',
+                'created' => '2021-06-05 16:10:16',
+                'modified' => '2021-06-05 16:10:16',
             ],
         ];
         parent::init();

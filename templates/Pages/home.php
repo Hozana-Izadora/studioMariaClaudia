@@ -47,7 +47,10 @@ if (!Configure::read('debug')) :
     );
 endif;
 
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
+echo $this->Html->link(__('CakeLTE debug page'), '/cake_lte/debug' );
+ 
+
+$cakeDescription = 'Studio Maria Cláudia';
 ?>
 <!DOCTYPE html>
 <html>

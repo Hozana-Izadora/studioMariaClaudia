@@ -44,9 +44,9 @@ class MaterialsFixture extends TestFixture
                 'id' => 1,
                 'material_description' => 'Lorem ipsum dolor sit amet',
                 'material_quant' => 1,
-                'material_expiration' => '2021-06-03',
-                'created' => '2021-06-03',
-                'modified' => '2021-06-03',
+                'material_expiration' => '2021-06-05',
+                'created' => '2021-06-05',
+                'modified' => '2021-06-05',
             ],
         ];
         parent::init();
