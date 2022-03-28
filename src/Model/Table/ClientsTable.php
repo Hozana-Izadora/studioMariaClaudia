@@ -71,9 +71,9 @@ class ClientsTable extends Table
             ->notEmptyString('client_cpf');
 
         $validator
-            ->date('client_birth')
-            ->requirePresence('client_birth', 'create')
-            ->notEmptyDate('client_birth');
+            ->date('client_birthday')
+            ->requirePresence('client_birthday', 'create')
+            ->notEmptyDate('client_birthday');
 
         $validator
             ->scalar('client_phone')
