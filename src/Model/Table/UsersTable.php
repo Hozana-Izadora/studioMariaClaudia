@@ -40,8 +40,8 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setDisplayField('user_name');
+        $this->setPrimaryKey('id_user');
 
         $this->addBehavior('Timestamp');
     }
@@ -55,8 +55,8 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('id_user')
+            ->allowEmptyString('id_user', null, 'create');
 
         $validator
             ->scalar('user_name')

@@ -5,14 +5,14 @@
  */
 ?>
 
-<?php $this->assign('title', __('Clients') ); ?>
+<?php $this->assign('title', __('Clientes') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Clients',
+      'Listar Clientes',
     ]
   ])  
 );
@@ -26,7 +26,7 @@ $this->assign('breadcrumb',
             'label'=>false,
             'class' => 'form-control-sm',
           ]); ?>
-      <?= $this->Html->link(__('New Client'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
+      <?= $this->Html->link(__('Cadastrar Cliente'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
     </div>
   </div>
   <!-- /.card-header -->
@@ -35,31 +35,30 @@ $this->assign('breadcrumb',
         <thead>
           <tr>
               <th><?= $this->Paginator->sort('id') ?></th>
-              <th><?= $this->Paginator->sort('client_name') ?></th>
-              <th><?= $this->Paginator->sort('client_cpf') ?></th>
-              <th><?= $this->Paginator->sort('client_birth') ?></th>
-              <th><?= $this->Paginator->sort('client_phone') ?></th>
-              <th><?= $this->Paginator->sort('client_email') ?></th>
-              <th><?= $this->Paginator->sort('created') ?></th>
-              <th><?= $this->Paginator->sort('modified') ?></th>
-              <th class="actions"><?= __('Actions') ?></th>
+              <th><?= $this->Paginator->sort('client_name',['label'=>'Nome']) ?></th>
+              <th><?= $this->Paginator->sort('client_cpf',['label'=>'CPF']) ?></th>
+              <th><?= $this->Paginator->sort('client_birthday',['label'=>'Nascimento']) ?></th>
+              <th><?= $this->Paginator->sort('client_phone',['label'=>'Telefone']) ?></th>
+              <th><?= $this->Paginator->sort('client_email',['label'=>'Email']) ?></th>
+              <th><?= $this->Paginator->sort('created',['label'=>'Data da Criação']) ?></th>
+              <th class="actions"><?= __('Ações') ?></th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($clients as $client): ?>
           <tr>
-            <td><?= $this->Number->format($client->id) ?></td>
+            <td><?= $this->Number->format($client->id_client) ?></td>
             <td><?= h($client->client_name) ?></td>
             <td><?= h($client->client_cpf) ?></td>
-            <td><?= h($client->client_birth) ?></td>
+            <td><?= h($client->client_birthday) ?></td>
             <td><?= h($client->client_phone) ?></td>
             <td><?= h($client->client_email) ?></td>
             <td><?= h($client->created) ?></td>
             <td><?= h($client->modified) ?></td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['action' => 'view', $client->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Html->link(__('Edit'), ['action' => 'edit', $client->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $client->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Are you sure you want to delete # {0}?', $client->id)]) ?>
+              <?= $this->Html->link(__('View'), ['action' => 'view', $client->id_client], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
+              <?= $this->Html->link(__('Edit'), ['action' => 'edit', $client->id_client], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
+              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $client->id_client], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Are you sure you want to delete # {0}?', $client->id)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -70,7 +69,7 @@ $this->assign('breadcrumb',
 
   <div class="card-footer d-md-flex paginator">
     <div class="mr-auto" style="font-size:.8rem">
-      <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
+      <?= $this->Paginator->counter(__('Pág {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?>
     </div>
 
     <ul class="pagination pagination-sm">

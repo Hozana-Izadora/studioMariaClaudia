@@ -4,7 +4,23 @@
 /config/.env
 /logs/*
 /tmp/*
+# /vendor/*
+
+!/vendor/
+
 /vendor/*
+!/vendor/arodu/
+
+/vendor/arodu/*
+!vendor/arodu/cakelte/
+
+/vendor/arodu/cakelte/*
+!/vendor/arodu/cakelte/templates/
+
+/vendor/arodu/cakelte/templates/*
+!/vendor/arodu/cakelte/templates/element/
+!/vendor/arodu/cakelte/templates/layout/
+
 
 # OS generated files #
 ######################

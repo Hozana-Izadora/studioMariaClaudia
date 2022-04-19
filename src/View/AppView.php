@@ -47,7 +47,7 @@ class AppView extends View
         $this->initializeCakeLte(
             $options =  [
                 'appName' => 'Maria Cláudia', // [string] default='Cake<b>LTE</b>'
-                'appLogo' => 'CakeLte.logobranca.png', // [string] default='CakeLte.cake.icon.png'
+                'appLogo' => 'logo-branca.png', // [string] default='CakeLte.cake.icon.png'
             ]
         );
     }

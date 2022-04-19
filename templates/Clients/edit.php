@@ -25,11 +25,11 @@ $this->assign('breadcrumb',
   <?= $this->Form->create($client) ?>
   <div class="card-body">
     <?php
-      echo $this->Form->control('client_name');
-      echo $this->Form->control('client_cpf');
-      echo $this->Form->control('client_birth');
-      echo $this->Form->control('client_phone');
-      echo $this->Form->control('client_email');
+      echo $this->Form->control('client_name', ['label' => 'Nome']);
+      echo $this->Form->control('client_cpf', ['label' => 'CPF', 'id' => 'cpf']);
+      echo $this->Form->control('client_birthday', ['label' => 'Nascimento', 'type' => 'date']);
+      echo $this->Form->control('client_phone', ['label' => 'Telefone', 'id' => 'telefone']);
+      echo $this->Form->control('client_email', ['label' => 'Email']);
     ?>
   </div>
 

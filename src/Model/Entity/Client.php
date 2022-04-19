@@ -29,12 +29,7 @@ class Client extends Entity
      * @var array
      */
     protected $_accessible = [
-        'client_name' => true,
-        'client_cpf' => true,
-        'client_birth' => true,
-        'client_phone' => true,
-        'client_email' => true,
-        'created' => true,
-        'modified' => true,
+        '*' => true,
+        'id_client' => false,
     ];
 }

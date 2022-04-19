@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -19,7 +20,6 @@ class ClientsController extends AppController
     public function index()
     {
         $clients = $this->paginate($this->Clients);
-
         $this->set(compact('clients'));
     }
 
@@ -50,11 +50,11 @@ class ClientsController extends AppController
         if ($this->request->is('post')) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
             if ($this->Clients->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('Cliente foi salvo com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__('Cliente não foi salvo. Por favor, tente novamente.'));
         }
         $this->set(compact('client'));
     }
@@ -74,11 +74,11 @@ class ClientsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
             if ($this->Clients->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('Cliente foi salvo com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__('Cliente não foi salvo. Por favor, tente novamente.'));
         }
         $this->set(compact('client'));
     }
