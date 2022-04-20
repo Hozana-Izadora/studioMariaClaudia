@@ -14,7 +14,7 @@ class UsersController extends AppController
 {
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
-        $this->Authentication->allowUnauthenticated(['login', 'logout', 'index', 'edit', 'add']);
+        $this->Authentication->allowUnauthenticated(['login', 'logout']);
 
         parent::beforeFilter($event);
     }
@@ -23,11 +23,10 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
-        // debug($result);
-        // exit;
+        
         // If the user is logged in send them away.
         if ($result->isValid()) {
-            $target = $this->Authentication->getLoginRedirect() ?? '/ ';
+            $target = $this->Authentication->getLoginRedirect() ?? '/';
             return $this->redirect($target);
         }
         if ($this->request->is('post') && !$result->isValid()) {

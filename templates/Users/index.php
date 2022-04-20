@@ -26,7 +26,7 @@ $this->assign('breadcrumb',
             'label'=>false,
             'class' => 'form-control-sm',
           ]); ?>
-      <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
+      <?= $this->Html->link(__('Novo Usuário'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
     </div>
   </div>
   <!-- /.card-header -->
@@ -34,13 +34,11 @@ $this->assign('breadcrumb',
     <table class="table table-hover text-nowrap">
         <thead>
           <tr>
-              <th><?= $this->Paginator->sort('id') ?></th>
+              <th><?= $this->Paginator->sort('id_user') ?></th>
               <th><?= $this->Paginator->sort('user_name') ?></th>
               <th><?= $this->Paginator->sort('user_cpf') ?></th>
               <th><?= $this->Paginator->sort('user_phone') ?></th>
               <th><?= $this->Paginator->sort('email') ?></th>
-              <th><?= $this->Paginator->sort('password') ?></th>
-              <th><?= $this->Paginator->sort('modified') ?></th>
               <th><?= $this->Paginator->sort('created') ?></th>
               <th class="actions"><?= __('Actions') ?></th>
           </tr>
@@ -48,18 +46,16 @@ $this->assign('breadcrumb',
         <tbody>
           <?php foreach ($users as $user): ?>
           <tr>
-            <td><?= $this->Number->format($user->id) ?></td>
+            <td><?= $this->Number->format($user->id_user) ?></td>
             <td><?= h($user->user_name) ?></td>
             <td><?= h($user->user_cpf) ?></td>
             <td><?= h($user->user_phone) ?></td>
             <td><?= h($user->email) ?></td>
-            <td><?= h($user->password) ?></td>
-            <td><?= h($user->modified) ?></td>
-            <td><?= h($user->created) ?></td>
+            <td><?= $user->created->i18nFormat('dd/MM/Y') ?></td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+              <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $user->id_user], ['class'=>'btn btn-sm btn-primary', 'escape'=>false]) ?>
+              <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $user->id_user], ['class'=>'text-white btn btn-sm btn-warning', 'escape'=>false]) ?>
+              <?= $this->Form->postLink(__('<i class="fa fa-trash"></i>'), ['action' => 'delete', $user->id_user], ['class'=>'btn btn-sm btn-danger', 'escape'=>false, 'confirm' => __('Deseja realmente excluir # {0}?', $user->user_name)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>

@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title><?= strip_tags($this->settings['appName']) . ' | ' . $this->fetch('title') ?></title>
+  <title><?= 'Studio | ' . $this->fetch('title') ?></title>
 
   <?= $this->Html->meta('icon') ?>
   <?= $this->fetch('meta') ?>
@@ -21,6 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Font Awesome Icons -->
   <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
   <!-- icheck bootstrap -->
   <?= $this->Html->css('CakeLte./AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css') ?>
   <!-- Theme style -->
@@ -115,6 +117,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
   <!-- AdminLTE App -->
   <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
+  <!--DataTables -->
+  <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/js/jquery.dataTables.min.js') ?>
 
   <?= $this->element('layout/script') ?>
 

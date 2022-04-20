@@ -51,7 +51,7 @@ $this->assign('breadcrumb',
             <td class="actions">
               <?= $this->Html->link(__('View'), ['action' => 'view', $service->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
               <?= $this->Html->link(__('Edit'), ['action' => 'edit', $service->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $service->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Are you sure you want to delete # {0}?', $service->id)]) ?>
+              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $service->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Deseja realmente excluir # {0}?', $service->id)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>

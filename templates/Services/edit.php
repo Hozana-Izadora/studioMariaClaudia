@@ -34,7 +34,7 @@ $this->assign('breadcrumb',
       <?= $this->Form->postLink(
           __('Delete'),
           ['action' => 'delete', $service->id],
-          ['confirm' => __('Are you sure you want to delete # {0}?', $service->id), 'class' => 'btn btn-danger']
+          ['confirm' => __('Deseja realmente excluir # {0}?', $service->id), 'class' => 'btn btn-danger']
       ) ?>
     </div>
     <div class="ml-auto">

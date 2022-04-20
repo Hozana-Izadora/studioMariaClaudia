@@ -10,9 +10,9 @@
   <?php
     foreach ($breadcrumb as $key => $value) {
       if(is_numeric($key)){
-        echo '<li class="breadcrumb-item active">'.$value.'</li>';
+        echo '<li class="breadcrumb-item text-pink">'.$value.'</li>';
       }else{
-        echo '<li class="breadcrumb-item">'.$this->Html->link($key, $value, ['escape'=>false]).'</li>';
+        echo '<li class="breadcrumb-item text-pink ">'.$this->Html->link($key, $value, ['escape'=>false,'class'=>'text-maroon']).'</li>';
       }
     }
   ?>

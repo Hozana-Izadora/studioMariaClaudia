@@ -5,6 +5,7 @@ CREATE TABLE clients (
     client_birthday date,
     client_phone varchar (15),
     client_email varchar (100),
+    client_photo varchar(250),
     created timestamp without time zone,
     modified timestamp without time zone    
 );

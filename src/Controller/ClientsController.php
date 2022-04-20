@@ -49,6 +49,20 @@ class ClientsController extends AppController
         $client = $this->Clients->newEmptyEntity();
         if ($this->request->is('post')) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
+            $id_client = $this->Clients->find()->order('id_client desc')->first();
+            $id = ($id_client->id_client) + 1;
+            $file = 'client_photo';
+            if ($this->request->getData('client_photo')) {
+                $imagem = $this->request->getUploadedFile($file);
+                if (!$imagem->getError()) {
+                    $nome_imagem = $imagem->getClientFileName();
+                    $path_info   = pathinfo($nome_imagem);
+                    $client[$file] = 'photo' . '_' . $id . '.' . $path_info['extension'];
+                    $path_base = WWW_ROOT . "img" . DS . "Clients";
+                    $full_path = $path_base . DS . 'Photos' . DS . $client[$file];
+                    $imagem->moveTo($full_path);
+                }
+            }
             if ($this->Clients->save($client)) {
                 $this->Flash->success(__('Cliente foi salvo com sucesso.'));
 
@@ -73,10 +87,23 @@ class ClientsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
+            $file = 'client_photo';
+            if ($this->request->getData('client_photo')) {
+                $imagem = $this->request->getUploadedFile($file);
+                if (!$imagem->getError()) {
+                    $nome_imagem = $imagem->getClientFileName();
+                    $path_info   = pathinfo($nome_imagem);
+                    $client[$file] = 'photo' . '_' . $id . '.' . $path_info['extension'];
+                    $path_base = WWW_ROOT . "img" . DS . "Clients";
+                    $full_path = $path_base . DS . 'Photos' . DS . $client[$file];
+                    $imagem->moveTo($full_path);
+                }
+            }
+
             if ($this->Clients->save($client)) {
                 $this->Flash->success(__('Cliente foi salvo com sucesso.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$id]);
             }
             $this->Flash->error(__('Cliente não foi salvo. Por favor, tente novamente.'));
         }
