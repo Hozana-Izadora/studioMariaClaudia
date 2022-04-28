@@ -1,4 +1,3 @@
 <div class="p-3">
-  <h5>Title</h5>
-  <p>Sidebar content</p>
+  <a href="<?=$this->Url->build('/Users/logout')?>"><i class="fa fa-power-off" aria-hidden="true"></i>Sair</a>
 </div>

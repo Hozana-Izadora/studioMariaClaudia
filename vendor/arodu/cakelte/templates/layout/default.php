@@ -51,17 +51,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-pink navbar-dark">
       <?= $this->element('header/main') ?>
     </nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar elevation-4 sidebar-light-maroon">
       <!-- Brand Logo -->
-      <div class="user-panel text-center">
+      <div class="user-panel bg-pink text-center">
         <a href="<?= $this->Url->build('/') ?>" class="logo-sidebar">
-          <?= $this->Html->image($this->settings['appLogo'], ['alt' => $this->settings['appName'] . ' logo', 'style' => 'width: 150px;padding: 10px;']) ?>
+          <?= $this->Html->image($this->settings['appLogo'], ['alt' => $this->settings['appName'] . ' logo', 'style' => 'width: 109px;padding: 10px;']) ?>
           <!-- <span class="brand-text font-weight-light"><?= $this->settings['appName'] ?></span> -->
         </a>
       </div>
