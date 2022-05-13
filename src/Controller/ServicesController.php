@@ -49,12 +49,13 @@ class ServicesController extends AppController
         $service = $this->Services->newEmptyEntity();
         if ($this->request->is('post')) {
             $service = $this->Services->patchEntity($service, $this->request->getData());
+            // debug($this->request->getData());exit;
             if ($this->Services->save($service)) {
-                $this->Flash->success(__('The service has been saved.'));
+                $this->Flash->success(__('O Serviço foi salvo.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The service could not be saved. Please, try again.'));
+            $this->Flash->error(__('O Serviço não foi salvo. Por favor, tente novamente.'));
         }
         $this->set(compact('service'));
     }

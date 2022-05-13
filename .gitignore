@@ -9,6 +9,25 @@
 !/vendor/
 
 /vendor/*
+!/vendor/cakephp/ 
+
+/vendor/cakephp/*
+!/vendor/cakephp/cakephp/
+
+/vendor/cakephp/cakephp/*
+!/vendor/cakephp/cakephp/src/
+
+/vendor/cakephp/cakephp/src/*
+!/vendor/cakephp/cakephp/src/Controller/
+
+/vendor/cakephp/cakephp/src/Controller/*
+!/vendor/cakephp/cakephp/src/Controller/Component/
+
+/vendor/cakephp/cakephp/src/Controller/Component/*
+!/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php
+
+
+# /vendor/*
 !/vendor/arodu/
 
 /vendor/arodu/*
@@ -21,6 +40,26 @@
 !/vendor/arodu/cakelte/templates/element/
 !/vendor/arodu/cakelte/templates/layout/
 
+/python/bd.py
+/python/__pycache__/
+
+#ADMINLTE
+# !/vendor/
+# /vendor/*
+
+# !/vendor/arodu/
+
+# /vendor/arodu/*
+# !vendor/arodu/cakelte/
+
+# /vendor/arodu/cakelte/*
+# !/vendor/arodu/cakelte/templates/
+
+# /vendor/arodu/cakelte/templates/*
+# !/vendor/arodu/cakelte/templates/element/
+# !/vendor/arodu/cakelte/templates/layout/
+
+/webroot/img/certificados/*
 
 # OS generated files #
 ######################

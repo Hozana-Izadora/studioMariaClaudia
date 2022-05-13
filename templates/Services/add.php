@@ -5,33 +5,34 @@
  */
 ?>
 
-<?php $this->assign('title', __('Add Service') ); ?>
+<?php $this->assign('title', __('Cadastrar Serviços') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Services' => ['action'=>'index'],
-      'Add',
+      'Listar Serviços' => ['action'=>'index'],
+      'Cadastrar',
     ]
   ])
 );
 ?>
 
 
-<div class="card card-primary card-outline">
+<div class="card card-pink card-outline">
   <?= $this->Form->create($service) ?>
   <div class="card-body">
     <?php
-      echo $this->Form->control('service_name');
+      echo $this->Form->control('service_name',['label'=>'Serviço']);
+      echo $this->Form->control('price',['label'=>'Valor']);
     ?>
   </div>
 
   <div class="card-footer d-flex">
     <div class="ml-auto">
-      <?= $this->Form->button(__('Save')) ?>
-      <?= $this->Html->link(__('Cancel'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
+      <?= $this->Form->button(__('Salvar'),['class' => 'btn bg-teal']) ?>
+      <?= $this->Html->link(__('Cancelar'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
     </div>
   </div>
 

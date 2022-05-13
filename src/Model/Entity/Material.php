@@ -27,10 +27,7 @@ class Material extends Entity
      * @var array
      */
     protected $_accessible = [
-        'material_description' => true,
-        'material_quant' => true,
-        'material_expiration' => true,
-        'created' => true,
-        'modified' => true,
+        '*'=>true,
+        'id_material'=>false,
     ];
 }

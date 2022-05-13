@@ -11,15 +11,17 @@ CREATE TABLE clients (
 );
 CREATE TABLE materials(
     id_material serial PRIMARY KEY NOT NULL,
-    material_description varchar(150),
+    material_description varchar(250),
     material_quantity integer,
     material_expiration date,
+    material_purchaseday date,
     created timestamp without time zone,
     modified timestamp without time zone  
 );
 CREATE TABLE services(
     id_service serial PRIMARY KEY NOT NULL,
-    service_name varchar(100),
+    service_name varchar(250),
+    price double precision,
     created timestamp without time zone,
     modified timestamp without time zone
 );

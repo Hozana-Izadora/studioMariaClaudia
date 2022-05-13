@@ -5,41 +5,42 @@
  */
 ?>
 
-<?php $this->assign('title', __('Edit Service') ); ?>
+<?php $this->assign('title', __('Editar Serviços') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Services' => ['action'=>'index'],
-      'View' => ['action'=>'view', $service->id],
-      'Edit',
+      'Listar Serviços' => ['action'=>'index'],
+      'Vizualizar' => ['action'=>'view', $service->id_service],
+      'Editar',
     ]
   ])
 );
 ?>
 
 
-<div class="card card-primary card-outline">
+<div class="card card-pink card-outline">
   <?= $this->Form->create($service) ?>
   <div class="card-body">
     <?php
-      echo $this->Form->control('service_name');
+      echo $this->Form->control('service_name',['label'=>'Serviço']);
+      echo $this->Form->control('price',['label'=>'Valor']);
     ?>
   </div>
 
   <div class="card-footer d-flex">
     <div class="">
       <?= $this->Form->postLink(
-          __('Delete'),
-          ['action' => 'delete', $service->id],
-          ['confirm' => __('Deseja realmente excluir # {0}?', $service->id), 'class' => 'btn btn-danger']
+          __('Excluir'),
+          ['action' => 'delete', $service->id_service],
+          ['confirm' => __('Deseja realmente excluir # {0}?', $service->id_service), 'class' => 'btn btn-danger']
       ) ?>
     </div>
     <div class="ml-auto">
-      <?= $this->Form->button(__('Save')) ?>
-      <?= $this->Html->link(__('Cancel'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
+      <?= $this->Form->button(__('Salvar'),['class'=>'bg-teal']) ?>
+      <?= $this->Html->link(__('Cancelar'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
     </div>
   </div>
 

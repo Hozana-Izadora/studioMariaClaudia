@@ -50,11 +50,11 @@ class MaterialsController extends AppController
         if ($this->request->is('post')) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+                $this->Flash->success(__('Material foi salvo com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('Material não foi salvo. Por favor, tente novamente.'));
         }
         $this->set(compact('material'));
     }
@@ -74,11 +74,11 @@ class MaterialsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+                $this->Flash->success(__('Material foi salvo com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('Material não foi salvo. Por favor, tente novamente.'));
         }
         $this->set(compact('material'));
     }
@@ -95,9 +95,9 @@ class MaterialsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $material = $this->Materials->get($id);
         if ($this->Materials->delete($material)) {
-            $this->Flash->success(__('The material has been deleted.'));
+            $this->Flash->success(__('Material foi excluído com sucesso.'));
         } else {
-            $this->Flash->error(__('The material could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Material não foi excluído. Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
