@@ -27,6 +27,5 @@ class Service extends Entity
     protected $_accessible = [
         '*' => true,
         'id_service'=>false,
-        'service_name' => true,
     ];
 }

@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\Service $service
  */
 ?>
-
+<?php echo $this->Html->script('mask'); ?>
+<?php echo $this->Html->css('estilo'); ?>
 <?php $this->assign('title', __('Editar Serviços') ); ?>
 
 <?php
@@ -24,9 +25,16 @@ $this->assign('breadcrumb',
 <div class="card card-pink card-outline">
   <?= $this->Form->create($service) ?>
   <div class="card-body">
-    <?php
-      echo $this->Form->control('service_name',['label'=>'Serviço']);
-      echo $this->Form->control('price',['label'=>'Valor']);
+  <?php
+      echo $this->Form->control('service_name',[
+        'label'=>'Serviço',
+        'class'=>'uppercase',
+      ]);
+      echo $this->Form->control('price',
+      ['label'=>'Valor', 
+      'id'=>'price',
+      'placeholder'=> 'R$'
+    ]);
     ?>
   </div>
 

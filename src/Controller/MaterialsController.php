@@ -49,6 +49,7 @@ class MaterialsController extends AppController
         $material = $this->Materials->newEmptyEntity();
         if ($this->request->is('post')) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
+            // debug($this->Materials->save($material));exit;
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('Material foi salvo com sucesso.'));
 

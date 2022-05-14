@@ -15,6 +15,7 @@ CREATE TABLE materials(
     material_quantity integer,
     material_expiration date,
     material_purchaseday date,
+    price double precision,
     created timestamp without time zone,
     modified timestamp without time zone  
 );

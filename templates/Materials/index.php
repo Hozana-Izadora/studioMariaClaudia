@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Material[]|\Cake\Collection\CollectionInterface $materials
  */
 ?>
-
+<?php echo $this->Html->css('estilo'); ?>
 <?php $this->assign('title', __('Materiais') ); ?>
 
 <?php
@@ -38,6 +38,7 @@ $this->assign('breadcrumb',
               <th><?= $this->Paginator->sort('material_description',['label'=>'Material']) ?></th>
               <th><?= $this->Paginator->sort('material_quant',['label'=>'Quantidade']) ?></th>
               <th><?= $this->Paginator->sort('material_purchaseday',['label'=>'Dia da Compra']) ?></th>
+              <th><?= $this->Paginator->sort('price',['label'=>'Valor da Compra']) ?></th>
               <th><?= $this->Paginator->sort('material_expiration',['label'=>'Expiração']) ?></th>
               <th class="actions"><?= __('Ações') ?></th>
           </tr>
@@ -46,9 +47,10 @@ $this->assign('breadcrumb',
           <?php foreach ($materials as $material): ?>
           <tr>
             <td><?= $this->Number->format($material->id_material) ?></td>
-            <td><?= h($material->material_description) ?></td>
+            <td class='uppercase' ><?= h($material->material_description) ?></td>
             <td><?= $this->Number->format($material->material_quantity) ?></td>
             <td><?= $material->material_purchaseday?$material->material_purchaseday->i18nFormat('dd/MM/Y') : '' ?></td>
+            <td>R$ <?= $material->price ?></td>
             <td><?= $material->material_expiration?$material->material_expiration->i18nFormat('dd/MM/Y') : ''?></td>
            
             <td class="actions">

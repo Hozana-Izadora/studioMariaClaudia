@@ -70,9 +70,9 @@ class MaterialsTable extends Table
             ->notEmptyString('material_purchaseday');
 
         $validator
-            ->integer('material_quant')
-            ->requirePresence('material_quant', 'create')
-            ->notEmptyString('material_quant');
+            ->integer('material_quantity')
+            ->requirePresence('material_quantity', 'create')
+            ->notEmptyString('material_quantity');
 
         $validator
             ->date('material_expiration')

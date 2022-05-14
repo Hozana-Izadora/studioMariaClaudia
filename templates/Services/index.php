@@ -45,7 +45,7 @@ $this->assign('breadcrumb',
           <tr>
             <td><?= $this->Number->format($service->id_service) ?></td>
             <td><?= h($service->service_name) ?></td>
-            <td><?= h($service->service_price) ?></td>
+            <td><?= "R$". $service->price?></td>
             <td class="actions">
             <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $service->id_service], ['class' => 'btn btn-sm bg-maroon', 'escape' => false, 'title' => 'Vizualizar']) ?>
               <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $service->id_service], ['class' => 'btn btn-sm btn-warning text-white', 'escape' => false, 'title' => 'Editar']) ?>

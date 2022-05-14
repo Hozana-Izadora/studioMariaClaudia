@@ -5,6 +5,7 @@
  * @var \App\Model\Entity\Client $client
  */
 ?>
+<?php echo $this->Html->script('mask'); ?>
 
 <?php $this->assign('title', __('Editar Cliente')); ?>
 

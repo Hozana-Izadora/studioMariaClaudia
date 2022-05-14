@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\Material $material
  */
 ?>
-
+<?php echo $this->Html->script('mask'); ?>
+<?php echo $this->Html->css('estilo'); ?>
 <?php $this->assign('title', __('Editar Material') ); ?>
 
 <?php
@@ -25,10 +26,14 @@ $this->assign('breadcrumb',
   <?= $this->Form->create($material) ?>
   <div class="card-body">
     <?php
-       echo $this->Form->control('material_description',['label'=>'Descrição do Material']);
-       echo $this->Form->control('material_quantity',['label'=>'Quantidade']);
+      echo $this->Form->control('material_description',['label'=>'Descrição do Material','class'=>'uppercase']);
+      echo $this->Form->control('material_quantity',['label'=>'Quantidade']);
        echo $this->Form->control('material_purchaseday',['label'=>'Data da Compra']);
        echo $this->Form->control('material_expiration',['label'=>'Data de Expiração']);
+       echo $this->Form->control('price',[
+        'label'=>'Valor da Compra',
+        'placeholder'=>'R$'  
+      ]);
     ?>
   </div>
 
