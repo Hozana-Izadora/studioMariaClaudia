@@ -4,21 +4,21 @@
  * @var \App\Model\Entity\Material[]|\Cake\Collection\CollectionInterface $materials
  */
 ?>
-
-<?php $this->assign('title', __('Materials') ); ?>
+<?php echo $this->Html->css('estilo'); ?>
+<?php $this->assign('title', __('Materiais') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Materials',
+      'Listar Materiais',
     ]
   ])
 );
 ?>
 
-<div class="card card-primary card-outline">
+<div class="card card-pink card-outline">
   <div class="card-header d-sm-flex">
     <h2 class="card-title"><!-- --></h2>
     <div class="card-toolbox">
@@ -26,7 +26,7 @@ $this->assign('breadcrumb',
             'label'=>false,
             'class' => 'form-control-sm',
           ]); ?>
-      <?= $this->Html->link(__('New Material'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
+      <?= $this->Html->link(__('Cadastrar Material'), ['action' => 'add'], ['class' => 'btn bg-maroon btn-sm']) ?>
     </div>
   </div>
   <!-- /.card-header -->
@@ -34,28 +34,29 @@ $this->assign('breadcrumb',
     <table class="table table-hover text-nowrap">
         <thead>
           <tr>
-              <th><?= $this->Paginator->sort('id') ?></th>
-              <th><?= $this->Paginator->sort('material_description') ?></th>
-              <th><?= $this->Paginator->sort('material_quant') ?></th>
-              <th><?= $this->Paginator->sort('material_expiration') ?></th>
-              <th><?= $this->Paginator->sort('created') ?></th>
-              <th><?= $this->Paginator->sort('modified') ?></th>
-              <th class="actions"><?= __('Actions') ?></th>
+              <th><?= $this->Paginator->sort('id_material') ?></th>
+              <th><?= $this->Paginator->sort('material_description',['label'=>'Material']) ?></th>
+              <th><?= $this->Paginator->sort('material_quant',['label'=>'Quantidade']) ?></th>
+              <th><?= $this->Paginator->sort('material_purchaseday',['label'=>'Dia da Compra']) ?></th>
+              <th><?= $this->Paginator->sort('price',['label'=>'Valor da Compra']) ?></th>
+              <th><?= $this->Paginator->sort('material_expiration',['label'=>'Expiração']) ?></th>
+              <th class="actions"><?= __('Ações') ?></th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($materials as $material): ?>
           <tr>
-            <td><?= $this->Number->format($material->id) ?></td>
-            <td><?= h($material->material_description) ?></td>
-            <td><?= $this->Number->format($material->material_quant) ?></td>
-            <td><?= h($material->material_expiration) ?></td>
-            <td><?= h($material->created) ?></td>
-            <td><?= h($material->modified) ?></td>
+            <td><?= $this->Number->format($material->id_material) ?></td>
+            <td class='uppercase' ><?= h($material->material_description) ?></td>
+            <td><?= $this->Number->format($material->material_quantity) ?></td>
+            <td><?= $material->material_purchaseday?$material->material_purchaseday->i18nFormat('dd/MM/Y') : '' ?></td>
+            <td>R$ <?= $material->price ?></td>
+            <td><?= $material->material_expiration?$material->material_expiration->i18nFormat('dd/MM/Y') : ''?></td>
+           
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['action' => 'view', $material->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Html->link(__('Edit'), ['action' => 'edit', $material->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $material->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Deseja realmente excluir # {0}?', $material->id)]) ?>
+            <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $material->id_material], ['class' => 'btn btn-sm bg-maroon', 'escape' => false, 'title' => 'Vizualizar']) ?>
+              <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $material->id_material], ['class' => 'btn btn-sm btn-warning text-white', 'escape' => false, 'title' => 'Editar']) ?>
+              <?= $this->Form->postLink(__('<i class="fa fa-trash"></i>'), ['action' => 'delete', $material->id_material], ['class' => 'btn btn-sm bg-purple', 'escape' => false, 'confirm' => __('Deseja realmente excluir # {0}?', $material->material_description)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>

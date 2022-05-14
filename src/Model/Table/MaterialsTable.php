@@ -40,8 +40,8 @@ class MaterialsTable extends Table
         parent::initialize($config);
 
         $this->setTable('materials');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setDisplayField('material_description');
+        $this->setPrimaryKey('id_material');
 
         $this->addBehavior('Timestamp');
     }
@@ -55,19 +55,24 @@ class MaterialsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
+            ->integer('id_material')
             ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('material_description')
-            ->maxLength('material_description', 150)
+            ->maxLength('material_description', 250)
             ->requirePresence('material_description', 'create')
             ->notEmptyString('material_description');
+        $validator
+            ->scalar('material_purchaseday')
+            ->maxLength('material_purchaseday', 250)
+            ->requirePresence('material_purchaseday', 'create')
+            ->notEmptyString('material_purchaseday');
 
         $validator
-            ->integer('material_quant')
-            ->requirePresence('material_quant', 'create')
-            ->notEmptyString('material_quant');
+            ->integer('material_quantity')
+            ->requirePresence('material_quantity', 'create')
+            ->notEmptyString('material_quantity');
 
         $validator
             ->date('material_expiration')

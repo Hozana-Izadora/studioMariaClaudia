@@ -5,20 +5,20 @@
  */
 ?>
 
-<?php $this->assign('title', __('Services') ); ?>
+<?php $this->assign('title', __('Serviços') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Services',
+      'Listar Serviços',
     ]
   ])
 );
 ?>
 
-<div class="card card-primary card-outline">
+<div class="card card-pink card-outline">
   <div class="card-header d-sm-flex">
     <h2 class="card-title"><!-- --></h2>
     <div class="card-toolbox">
@@ -26,7 +26,7 @@ $this->assign('breadcrumb',
             'label'=>false,
             'class' => 'form-control-sm',
           ]); ?>
-      <?= $this->Html->link(__('New Service'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']) ?>
+      <?= $this->Html->link(__('Cadastrar Serviço'), ['action' => 'add'], ['class' => 'btn bg-maroon btn-sm']) ?>
     </div>
   </div>
   <!-- /.card-header -->
@@ -35,23 +35,21 @@ $this->assign('breadcrumb',
         <thead>
           <tr>
               <th><?= $this->Paginator->sort('id') ?></th>
-              <th><?= $this->Paginator->sort('service_name') ?></th>
-              <th><?= $this->Paginator->sort('created') ?></th>
-              <th><?= $this->Paginator->sort('modified') ?></th>
-              <th class="actions"><?= __('Actions') ?></th>
+              <th><?= $this->Paginator->sort('service_name',['label'=>'Serviço']) ?></th>
+              <th><?= $this->Paginator->sort('price',['label'=>'Valor']) ?></th>
+              <th class="actions"><?= __('Ações') ?></th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($services as $service): ?>
           <tr>
-            <td><?= $this->Number->format($service->id) ?></td>
+            <td><?= $this->Number->format($service->id_service) ?></td>
             <td><?= h($service->service_name) ?></td>
-            <td><?= h($service->created) ?></td>
-            <td><?= h($service->modified) ?></td>
+            <td><?= "R$". $service->price?></td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['action' => 'view', $service->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Html->link(__('Edit'), ['action' => 'edit', $service->id], ['class'=>'btn btn-xs btn-outline-primary', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $service->id], ['class'=>'btn btn-xs btn-outline-danger', 'escape'=>false, 'confirm' => __('Deseja realmente excluir # {0}?', $service->id)]) ?>
+            <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $service->id_service], ['class' => 'btn btn-sm bg-maroon', 'escape' => false, 'title' => 'Vizualizar']) ?>
+              <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $service->id_service], ['class' => 'btn btn-sm btn-warning text-white', 'escape' => false, 'title' => 'Editar']) ?>
+              <?= $this->Form->postLink(__('<i class="fa fa-trash"></i>'), ['action' => 'delete',$service->id_service], ['class' => 'btn btn-sm bg-purple', 'escape' => false, 'confirm' => __('Deseja realmente excluir # {0}?', $service->service_name)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>

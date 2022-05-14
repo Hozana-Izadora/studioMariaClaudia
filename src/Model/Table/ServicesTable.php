@@ -40,8 +40,8 @@ class ServicesTable extends Table
         parent::initialize($config);
 
         $this->setTable('services');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setDisplayField('services');
+        $this->setPrimaryKey('id_service');
 
         $this->addBehavior('Timestamp');
     }
@@ -55,12 +55,12 @@ class ServicesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('id_service')
+            ->allowEmptyString('id_service', null, 'create');
 
         $validator
             ->scalar('service_name')
-            ->maxLength('service_name', 100)
+            ->maxLength('service_name', 250)
             ->requirePresence('service_name', 'create')
             ->notEmptyString('service_name');
 

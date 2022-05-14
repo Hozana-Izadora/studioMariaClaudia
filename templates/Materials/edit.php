@@ -4,44 +4,50 @@
  * @var \App\Model\Entity\Material $material
  */
 ?>
-
-<?php $this->assign('title', __('Edit Material') ); ?>
+<?php echo $this->Html->script('mask'); ?>
+<?php echo $this->Html->css('estilo'); ?>
+<?php $this->assign('title', __('Editar Material') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Materials' => ['action'=>'index'],
-      'View' => ['action'=>'view', $material->id],
-      'Edit',
+      'Listar Materiais' => ['action'=>'index'],
+      'Vizualizar' => ['action'=>'view', $material->id_material],
+      'Editar',
     ]
   ])
 );
 ?>
 
 
-<div class="card card-primary card-outline">
+<div class="card card-pink card-outline">
   <?= $this->Form->create($material) ?>
   <div class="card-body">
     <?php
-      echo $this->Form->control('material_description');
-      echo $this->Form->control('material_quant');
-      echo $this->Form->control('material_expiration');
+      echo $this->Form->control('material_description',['label'=>'Descrição do Material','class'=>'uppercase']);
+      echo $this->Form->control('material_quantity',['label'=>'Quantidade']);
+       echo $this->Form->control('material_purchaseday',['label'=>'Data da Compra']);
+       echo $this->Form->control('material_expiration',['label'=>'Data de Expiração']);
+       echo $this->Form->control('price',[
+        'label'=>'Valor da Compra',
+        'placeholder'=>'R$'  
+      ]);
     ?>
   </div>
 
   <div class="card-footer d-flex">
     <div class="">
       <?= $this->Form->postLink(
-          __('Delete'),
-          ['action' => 'delete', $material->id],
-          ['confirm' => __('Deseja realmente excluir # {0}?', $material->id), 'class' => 'btn btn-danger']
+          __('Excluir'),
+          ['action' => 'delete', $material->id_material],
+          ['confirm' => __('Deseja realmente excluir # {0}?', $material->id_material), 'class' => 'btn btn-danger']
       ) ?>
     </div>
     <div class="ml-auto">
-      <?= $this->Form->button(__('Save')) ?>
-      <?= $this->Html->link(__('Cancel'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
+      <?= $this->Form->button(__('Salvar'),['class'=>'btn bg-teal']) ?>
+      <?= $this->Html->link(__('Cancelar'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
     </div>
   </div>
 

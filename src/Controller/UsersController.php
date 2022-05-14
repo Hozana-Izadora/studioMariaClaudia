@@ -23,11 +23,11 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
-        
+        // debug($result);exit;
         // If the user is logged in send them away.
         if ($result->isValid()) {
             $target = $this->Authentication->getLoginRedirect() ?? '/';
-            return $this->redirect($target);
+            return $this->redirect('/dashboard/index');
         }
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error('Nome ou senha inválidos!');
