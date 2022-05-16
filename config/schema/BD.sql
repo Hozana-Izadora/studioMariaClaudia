@@ -43,3 +43,29 @@ CREATE TABLE users(
     created timestamp without time zone,
     modified timestamp without time zone
 );
+CREATE TABLE agendas
+(
+    id_agenda serial PRIMARY KEY NOT NULL,
+    data date NOT NULL,
+    ativo boolean,
+    created timestamp without time zone,
+    modified timestamp without time zone
+);
+CREATE TABLE atendimentos
+(
+    id_atendimento serial NOT NULL PRIMARY KEY,
+    agenda_id integer,
+    horario_id integer,
+    client_id integer,
+    service_id integer,
+    created timestamp without time zone,
+    modified timestamp without time zone,
+);
+CREATE TABLE horarios
+(
+    id_horario SERIAL NOT NULL PRIMARY KEY,
+    hora time without time zone,
+    agenda_id integer,
+    created timestamp without time zone,
+    modified timestamp without time zone,
+);

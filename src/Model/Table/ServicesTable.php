@@ -40,7 +40,7 @@ class ServicesTable extends Table
         parent::initialize($config);
 
         $this->setTable('services');
-        $this->setDisplayField('services');
+        $this->setDisplayField('service_name');
         $this->setPrimaryKey('id_service');
 
         $this->addBehavior('Timestamp');

@@ -19,7 +19,7 @@ $this->assign('breadcrumb',
 );
 ?>
 
-<div class="view card card-primary card-outline">
+<div class="view card card-pink card-outline">
   <div class="card-header d-sm-flex">
     <h2 class="card-title"><?= h($service->service_name) ?></h2>
   </div>

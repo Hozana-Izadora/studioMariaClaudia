@@ -48,7 +48,7 @@
                             <div class="input-group">
                                 <input id="new-event" type="text" class="form-control" placeholder="Título do Evento">
                                 <div class="input-group-append">
-                                    <button id="add-new-event" type="button" class="btn btn-primary">Criar</button>
+                                    <button id="add-new-event" type="button" class="btn bg-maroon">Criar</button>
                                 </div>
                                 <!-- /btn-group -->
                             </div>
@@ -59,7 +59,7 @@
             </div>
             <!-- /.col -->
             <div class="col-md-9">
-                <div class="card card-primary">
+                <div class="card card-pink">
                     <div class="card-body p-0">
                         <!-- THE CALENDAR -->
                         <div id="calendar"></div>

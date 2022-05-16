@@ -33,7 +33,7 @@
       </div>
       <!-- /.col -->
       <div class="col-4">
-        <?= $this->Form->control(__('Sign In'), ['type' => 'submit', 'class' => 'btn btn-primary btn-block']) ?>
+        <?= $this->Form->control(__('Sign In'), ['type' => 'submit', 'class' => 'btn bg-maroon btn-block']) ?>
       </div>
       <!-- /.col -->
     </div>
@@ -46,7 +46,7 @@
       echo $this->Html->link(
         '<i class="fab fa-facebook-f mr-2"></i>' . __('Sign in using Facebook'),
         '#',
-        ['class' => 'btn btn-block btn-primary', 'escape' => false]
+        ['class' => 'btn btn-block bg-maroon', 'escape' => false]
       );
       ?>
       <?php
