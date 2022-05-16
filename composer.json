@@ -48,10 +48,16 @@
         "cs-check": "phpcs --colors -p  src/ tests/",
         "cs-fix": "phpcbf --colors -p src/ tests/",
         "stan": "phpstan analyse",
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup",
         "test": "phpunit --colors=always"
     },
     "prefer-stable": true,
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "google/apiclient-services": [
+            "Calendar"
+        ]
     }
 }
