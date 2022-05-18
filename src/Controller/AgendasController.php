@@ -71,32 +71,48 @@ class AgendasController extends AppController
     //     }
     //     return $client;
     // }
+    public function oauth2callback()
+    {
+        // session_start();
+
+        $client = new Google_Client();
+        $client->setAuthConfig('credentials.json');
+        $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
+        $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
+
+        if (!isset($_GET['code'])) {
+            $auth_url = $client->createAuthUrl();
+            header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+        } else {
+            $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $_SESSION['access_token'] = $client->getAccessToken();
+            $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+            header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        }
+    }
     private function getClient()
     {
         $client = new Google_Client();
-        $client->setApplicationName("Maria Claudia Beauty");
-        $client->setDeveloperKey("AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8");
+        $client->setApplicationName("Maria Claudia Studio");
         $client->setAuthConfig('credentials.json');
-        $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
+        $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
+        $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
+        // $client->setScopes('email');
         $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
         $client->setLoginHint('izadoraferreir@google.com');
-        // $client->setAccessType('offline');        // offline access
-        $client->setIncludeGrantedScopes(true);
+        $client->setAccessType('offline');        // offline access
+        $client->setIncludeGrantedScopes(true); //
+        $client->setPrompt('select_account consent');
+        if (!isset($_GET['code'])) {
+            $auth_url = $client->createAuthUrl();
+            header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+        } else {
+            $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $_SESSION['access_token'] = $client->getAccessToken();
+            $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+            header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        }
         return $client;
-        // if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-        //     $client->setAccessToken($_SESSION['access_token']);
-        //     $drive = new Google_Service_Calendar($client);
-        //     $files = $drive->files->listFiles(array())->getItems();
-        //     return json_encode($files);
-        // } else {
-        //     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php';
-        //     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-        // }
-        // return $client;
-        // if (isset($_GET['code'])) {
-        //     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-        // }
-
     }
     public function calendar()
     {
@@ -107,22 +123,25 @@ class AgendasController extends AppController
 
         // Get the API client and construct the service object.
         $client = $this->getClient();
-        // $service = new Google_Service_Calendar($client);
+
         debug($client);
+        exit;
+        $service = new Google_Service_Calendar($client);
+        debug($service->events->listEvents('primary'));
         exit;
         // $auth_url = $client->createAuthUrl();
 
         // Print the next 10 events on the user's calendar.
-        $calendarId = 'primary';
-        $optParams = array(
-            'maxResults' => 10,
-            'orderBy' => 'startTime',
-            'singleEvents' => true,
-            'timeMin' => date('c'),
-        );
-        $results = $service->events->listEvents($calendarId, $optParams);
-        $events = $results->getItems();
+        // $calendarId = 'primary';
+        // $optParams = array(
+        //     'maxResults' => 10,
+        //     'orderBy' => 'startTime',
+        //     'singleEvents' => true,
+        //     'timeMin' => date('c'),
+        // );
+        // $results = $service->events->listEvents($calendarId, $optParams);
 
+        // $events = $results->getItems();
         // if (empty($events)) {
         //     print "No upcoming events found.\n";
         // } else {
@@ -135,6 +154,7 @@ class AgendasController extends AppController
         //         printf("%s (%s)\n", $event->getSummary(), $start);
         //     }
         // }
+        $this->set(compact('service'));
     }
 
     public function index()
