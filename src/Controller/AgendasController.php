@@ -71,25 +71,25 @@ class AgendasController extends AppController
     //     }
     //     return $client;
     // }
-    public function oauth2callback()
-    {
-        // session_start();
+    // public function oauth2callback()
+    // {
+    //     // session_start();
 
-        $client = new Google_Client();
-        $client->setAuthConfig('credentials.json');
-        $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
-        $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
+    //     $client = new Google_Client();
+    //     $client->setAuthConfig('credentials.json');
+    //     $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
+    //     $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
 
-        if (!isset($_GET['code'])) {
-            $auth_url = $client->createAuthUrl();
-            header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-        } else {
-            $client->fetchAccessTokenWithAuthCode($_GET['code']);
-            $_SESSION['access_token'] = $client->getAccessToken();
-            $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-            header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-        }
-    }
+    //     if (!isset($_GET['code'])) {
+    //         $auth_url = $client->createAuthUrl();
+    //         header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+    //     } else {
+    //         $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    //         $_SESSION['access_token'] = $client->getAccessToken();
+    //         $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+    //         header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+    //     }
+    // }
     private function getClient()
     {
         $client = new Google_Client();
@@ -123,37 +123,8 @@ class AgendasController extends AppController
 
         // Get the API client and construct the service object.
         $client = $this->getClient();
-
-        debug($client);
-        exit;
         $service = new Google_Service_Calendar($client);
-        debug($service->events->listEvents('primary'));
-        exit;
-        // $auth_url = $client->createAuthUrl();
-
-        // Print the next 10 events on the user's calendar.
-        // $calendarId = 'primary';
-        // $optParams = array(
-        //     'maxResults' => 10,
-        //     'orderBy' => 'startTime',
-        //     'singleEvents' => true,
-        //     'timeMin' => date('c'),
-        // );
-        // $results = $service->events->listEvents($calendarId, $optParams);
-
-        // $events = $results->getItems();
-        // if (empty($events)) {
-        //     print "No upcoming events found.\n";
-        // } else {
-        //     print "Upcoming events:\n";
-        //     foreach ($events as $event) {
-        //         $start = $event->start->dateTime;
-        //         if (empty($start)) {
-        //             $start = $event->start->date;
-        //         }
-        //         printf("%s (%s)\n", $event->getSummary(), $start);
-        //     }
-        // }
+        
         $this->set(compact('service'));
     }
 
