@@ -21,25 +21,49 @@ class AgendasController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    private function getClient()
+    {
+        $client = new Google_Client();
+        $client->setApplicationName("Maria Claudia Studio");
+        $client->setAuthConfig('credentials.json');
+        $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
+        $client->addScope(Google_Service_Calendar::CALENDAR);
+        // $client->setScopes('email');
+        $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/calendar');
+        // $client->setLoginHint('izadoraferreir@google.com');
+        $client->setAccessType('online');        // offline access
+        // $client->setIncludeGrantedScopes(true); //
+        // $client->setPrompt('select_account consent');
+        if(isset($_GET['code'])){
+            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $client->setAccessToken($token);
+
+            $_SESSION['access_token'] = $token;
+        }
+        debug($client->getAccessToken());exit;
+        $authUrl = $client->createAuthUrl();
+        printf("Open the following link in your browser:\n%s\n", "<a href='$authUrl'>" . $authUrl . "</a>");
+        $authCode = $_GET['code']; // <--- Appears to be the problem
+        $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
+        $client->setAccessToken($accessToken);
+        if ($client->isAccessTokenExpired()) {
+            $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+        }
+    return $client;
+    }
     // private function getClient()
     // {
     //     $client = new Google_Client();
-    //     $client->setApplicationName('Google Calendar API PHP Quickstart');
-    //     $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
-    //     $client->setAuthConfig(WWW_ROOT . 'credentials.json');
-    //     $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
-    //     $client->setAccessType('offline');
+    //     $client->setApplicationName("Maria Claudia Studio");
+    //     $client->setAuthConfig('credentials.json');
+    //     $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
+    //     $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
+    //     // $client->setScopes('email');
+    //     $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/calendar');
+    //     $client->setLoginHint('izadoraferreir@google.com');
+    //     $client->setAccessType('online');        // offline access
+    //     $client->setIncludeGrantedScopes(true); //
     //     $client->setPrompt('select_account consent');
-
-    //     // Load previously authorized token from a file, if it exists.
-    //     // The file token.json stores the user's access and refresh tokens, and is
-    //     // created automatically when the authorization flow completes for the first
-    //     // time.
-    //     $tokenPath = 'token.json';
-    //     if (file_exists($tokenPath)) {
-    //         $accessToken = json_decode(file_get_contents($tokenPath), true);
-    //         $client->setAccessToken($accessToken);
-    //     }
 
     //     // If there is no previous token or it's expired.
     //     if ($client->isAccessTokenExpired()) {
@@ -49,71 +73,19 @@ class AgendasController extends AppController
     //         } else {
     //             // Request authorization from the user.
     //             $authUrl = $client->createAuthUrl();
-    //             printf("Open the following link in your browser:\n%s\n", $authUrl);
-    //             print 'Enter verification code: ';
-
-    //             $authCode = trim(fgets(STDIN));
-
-    //             // Exchange authorization code for an access token.
-    //             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
-    //             $client->setAccessToken($accessToken);
-
-    //             // Check to see if there was an error.
-    //             if (array_key_exists('error', $accessToken)) {
-    //                 throw new Exception(join(', ', $accessToken));
-    //             }
+    //             header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
     //         }
-    //         // Save the token to a file.
-    //         if (!file_exists(dirname($tokenPath))) {
-    //             mkdir(dirname($tokenPath), 0700, true);
-    //         }
-    //         file_put_contents($tokenPath, json_encode($client->getAccessToken()));
+    //         //  else {
+    //         //     $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    //         //     $_SESSION['access_token'] = $client->getAccessToken();
+    //         //     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/index';
+    //         //     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+    //         // }
     //     }
-    //     return $client;
+    //     // return $client;
+    //     $service = new Google_Service_Calendar($client);
+    //     return $service;
     // }
-    // public function oauth2callback()
-    // {
-    //     // session_start();
-
-    //     $client = new Google_Client();
-    //     $client->setAuthConfig('credentials.json');
-    //     $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
-    //     $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
-
-    //     if (!isset($_GET['code'])) {
-    //         $auth_url = $client->createAuthUrl();
-    //         header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-    //     } else {
-    //         $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    //         $_SESSION['access_token'] = $client->getAccessToken();
-    //         $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-    //         header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-    //     }
-    // }
-    private function getClient()
-    {
-        $client = new Google_Client();
-        $client->setApplicationName("Maria Claudia Studio");
-        $client->setAuthConfig('credentials.json');
-        $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
-        $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
-        // $client->setScopes('email');
-        $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
-        $client->setLoginHint('izadoraferreir@google.com');
-        $client->setAccessType('offline');        // offline access
-        $client->setIncludeGrantedScopes(true); //
-        $client->setPrompt('select_account consent');
-        if (!isset($_GET['code'])) {
-            $auth_url = $client->createAuthUrl();
-            header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-        } else {
-            $client->fetchAccessTokenWithAuthCode($_GET['code']);
-            $_SESSION['access_token'] = $client->getAccessToken();
-            $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-            header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-        }
-        return $client;
-    }
     public function calendar()
     {
         /**
@@ -123,9 +95,23 @@ class AgendasController extends AppController
 
         // Get the API client and construct the service object.
         $client = $this->getClient();
+        debug($client);
+        exit;
+        $calId = 'izadoraferreir@google.com';
         $service = new Google_Service_Calendar($client);
-        
-        $this->set(compact('service'));
+        $events = $service->events->listEvents('izadoraferreir@gmail.com'); //tc2m2ackan7nh88mkpl278mjc8
+        $calendarList = $service->calendarList->listCalendarList();
+        $calendar = $service->calendars->get('izadoraferreir@gmail.com');
+        $acl = $service->acl->listAcl('primary');
+        $event = $service->events->get('primary', "tc2m2ackan7nh88mkpl278mjc8");
+
+        debug($event->start);
+
+
+        // debug($calendarList);
+        exit;
+        $this->set(compact('events'));
+        // $results = $service->events->listEvents($calId);
     }
 
     public function index()
