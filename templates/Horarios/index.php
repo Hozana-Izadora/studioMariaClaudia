@@ -1,18 +1,18 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
+ * @var \App\Model\Entity\Horario[]|\Cake\Collection\CollectionInterface $horarios
  */
 ?>
 
-<?php $this->assign('title', __('Users') ); ?>
+<?php $this->assign('title', __('Horarios') ); ?>
 
 <?php
 $this->assign('breadcrumb',
   $this->element('content/breadcrumb', [
     'home' => true,
     'breadcrumb' => [
-      'List Users',
+      'Listar Horários',
     ]
   ])
 );
@@ -26,7 +26,7 @@ $this->assign('breadcrumb',
             'label'=>false,
             'class' => 'form-control-sm',
           ]); ?>
-      <?= $this->Html->link(__('Novo Usuário'), ['action' => 'add'], ['class' => 'btn bg-maroon btn-sm']) ?>
+      <?= $this->Html->link(__('Cadastrar Horário'), ['action' => 'add'], ['class' => 'btn bg-maroon btn-sm']) ?>
     </div>
   </div>
   <!-- /.card-header -->
@@ -34,28 +34,22 @@ $this->assign('breadcrumb',
     <table class="table table-hover text-nowrap">
         <thead>
           <tr>
-              <th><?= $this->Paginator->sort('id_user') ?></th>
-              <th><?= $this->Paginator->sort('user_name') ?></th>
-              <th><?= $this->Paginator->sort('user_cpf') ?></th>
-              <th><?= $this->Paginator->sort('user_phone') ?></th>
-              <th><?= $this->Paginator->sort('email') ?></th>
-              <th><?= $this->Paginator->sort('created') ?></th>
+              <th><?= $this->Paginator->sort('id_horario') ?></th>
+              <th><?= $this->Paginator->sort('hora') ?></th>
+              <th><?= $this->Paginator->sort('agenda_id') ?></th>
               <th class="actions"><?= __('Ações') ?></th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($users as $user): ?>
+          <?php foreach ($horarios as $horario): ?> 
           <tr>
-            <td><?= $this->Number->format($user->id_user) ?></td>
-            <td><?= h($user->user_name) ?></td>
-            <td><?= h($user->user_cpf) ?></td>
-            <td><?= h($user->user_phone) ?></td>
-            <td><?= h($user->email) ?></td>
-            <td><?= $user->created->i18nFormat('dd/MM/Y') ?></td>
+            <td><?= $this->Number->format($horario->id_horario) ?></td>
+            <td><?= h($horario->hora) ?></td>
+            <td><?= $horario->has('agenda') ? $this->Html->link($horario->agenda->data->i18nFormat('dd/MM/Y'), ['controller' => 'Agendas', 'action' => 'view', $horario->agenda->id_agenda]) : '' ?></td>
             <td class="actions">
-              <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $user->id_user], ['class'=>'btn btn-sm bg-maroon', 'escape'=>false]) ?>
-              <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $user->id_user], ['class'=>'text-white btn btn-sm btn-warning', 'escape'=>false]) ?>
-              <?= $this->Form->postLink(__('<i class="fa fa-trash"></i>'), ['action' => 'delete', $user->id_user], ['class'=>'btn btn-sm btn-danger', 'escape'=>false, 'confirm' => __('Deseja realmente excluir # {0}?', $user->user_name)]) ?>
+              <?= $this->Html->link(__('<i class="fa fa-eye"></i>'), ['action' => 'view', $horario->id_horario], ['class' => 'btn btn-sm bg-maroon', 'escape' => false, 'title' => 'Vizualizar']) ?>
+              <?= $this->Html->link(__('<i class="fa fa-edit"></i>'), ['action' => 'edit', $horario->id_horario], ['class' => 'btn btn-sm btn-warning text-white', 'escape' => false, 'title' => 'Editar']) ?>
+              <?= $this->Form->postLink(__('<i class="fa fa-trash"></i>'), ['action' => 'delete', $horario->id_horario], ['class' => 'btn btn-sm bg-purple', 'escape' => false, 'confirm' => __('Deseja realmente excluir # {0}?', $horario->hora)]) ?>
             </td>
           </tr>
           <?php endforeach; ?>

@@ -19,7 +19,7 @@ $this->assign('breadcrumb',
 );
 ?>
 
-<div class="view card card-primary card-outline">
+<div class="view card card-pink card-outline">
   <div class="card-header d-sm-flex">
     <h2 class="card-title"><?= h($user->id) ?></h2>
   </div>
@@ -68,7 +68,7 @@ $this->assign('breadcrumb',
       ) ?>
     </div>
     <div class="ml-auto">
-      <?= $this->Html->link(__('Edit'), ['action' => 'edit',  $user->id], ['class' => 'btn btn-secondary']) ?>
+      <?= $this->Html->link(__('Edit'), ['action' => 'edit',  $user->id], ['class' => 'btn bg-teal']) ?>
       <?= $this->Html->link(__('Cancel'), ['action'=>'index'], ['class'=>'btn btn-default']) ?>
     </div>
   </div>

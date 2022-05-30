@@ -77,7 +77,7 @@ $this->assign(
       <div class="modal-footer">
         <?= $this->Form->button(__('Salvar'), ['class' => 'btn btn-success']) ?>
         <?= $this->Form->end() ?>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn bg-teal" data-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
