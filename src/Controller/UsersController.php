@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Core\Configure;
+use Composer\Config;
+
 /**
  * Users Controller
  *
@@ -22,22 +25,36 @@ class UsersController extends AppController
     public function login()
     {
         $this->request->allowMethod(['get', 'post']);
-        $result = $this->Authentication->getResult();
-        // debug($result);exit;
-        // If the user is logged in send them away.
-        if ($result->isValid()) {
-            $target = $this->Authentication->getLoginRedirect() ?? '/';
-            return $this->redirect('/dashboard/index');
-        }
-        if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Nome ou senha inválidos!');
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $remember = $data['remember_me'];
 
+            $result = $this->Authentication->getResult();
+            // debug($result);exit;
+            // If the user is logged in send them away.
+            if ($result->isValid()) {
+                if ($remember == '1') {
+                    // write the cookie
+                    Configure::write('Session', [
+                        'defaults' => 'php',
+                        'cookie' => 'my_app',
+                        'timeout' => 4320 // 3 dias
+                    ]);
+                }
+                return $this->redirect('/');
+            }
+            if ($this->request->is('post') && !$result->isValid()) {
+                // debug($result);exit;
+                $this->Flash->error('Nome ou senha inválidos!');
+            }
         }
     }
 
     public function logout()
     {
         $this->Authentication->logout();
+        $session = $this->getRequest()->getSession();
+        $session->destroy();
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
     /**
