@@ -28,64 +28,28 @@ class AgendasController extends AppController
         $client->setAuthConfig('credentials.json');
         $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
         $client->addScope(Google_Service_Calendar::CALENDAR);
-        // $client->setScopes('email');
         $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/calendar');
-        // $client->setLoginHint('izadoraferreir@google.com');
-        $client->setAccessType('online');        // offline access
-        // $client->setIncludeGrantedScopes(true); //
-        // $client->setPrompt('select_account consent');
-        if(isset($_GET['code'])){
-            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-            $client->setAccessToken($token);
+        $client->setAccessType('online');        // offline a
 
-            $_SESSION['access_token'] = $token;
+        if (!isset($_GET['code'])) {
+            $authUrl = $client->createAuthUrl();
+            header("Location: " . filter_var($authUrl, FILTER_SANITIZE_URL));
+            // printf("Open the following link in your browser:\n%s\n", "<a href='$authUrl'>" . $authUrl . "</a>");
         }
-        debug($client->getAccessToken());exit;
-        $authUrl = $client->createAuthUrl();
-        printf("Open the following link in your browser:\n%s\n", "<a href='$authUrl'>" . $authUrl . "</a>");
-        $authCode = $_GET['code']; // <--- Appears to be the problem
-        $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
-        $client->setAccessToken($accessToken);
+
+        if ($_SESSION['access_token']) {
+            $client->setAccessToken($_SESSION['access_token']);
+        } else {
+            $accessToken = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $client->setAccessToken($accessToken);
+            $_SESSION['access_token'] = $client->getAccessToken();
+        }
+
         if ($client->isAccessTokenExpired()) {
             $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
         }
-    return $client;
+        return $client;
     }
-    // private function getClient()
-    // {
-    //     $client = new Google_Client();
-    //     $client->setApplicationName("Maria Claudia Studio");
-    //     $client->setAuthConfig('credentials.json');
-    //     $client->setDeveloperKey('AIzaSyBvaEvbrT4Vj5hcx4K--Jy9bnJwOZZY9Q8');
-    //     $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
-    //     // $client->setScopes('email');
-    //     $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/calendar');
-    //     $client->setLoginHint('izadoraferreir@google.com');
-    //     $client->setAccessType('online');        // offline access
-    //     $client->setIncludeGrantedScopes(true); //
-    //     $client->setPrompt('select_account consent');
-
-    //     // If there is no previous token or it's expired.
-    //     if ($client->isAccessTokenExpired()) {
-    //         // Refresh the token if possible, else fetch a new one.
-    //         if ($client->getRefreshToken()) {
-    //             $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
-    //         } else {
-    //             // Request authorization from the user.
-    //             $authUrl = $client->createAuthUrl();
-    //             header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
-    //         }
-    //         //  else {
-    //         //     $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    //         //     $_SESSION['access_token'] = $client->getAccessToken();
-    //         //     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/studioMariaClaudia/Agendas/index';
-    //         //     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-    //         // }
-    //     }
-    //     // return $client;
-    //     $service = new Google_Service_Calendar($client);
-    //     return $service;
-    // }
     public function calendar()
     {
         /**
@@ -93,10 +57,8 @@ class AgendasController extends AppController
          * @return Google_Client the authorized client object
          */
 
-        // Get the API client and construct the service object.
         $client = $this->getClient();
-        debug($client);
-        exit;
+
         $calId = 'izadoraferreir@google.com';
         $service = new Google_Service_Calendar($client);
         $events = $service->events->listEvents('izadoraferreir@gmail.com'); //tc2m2ackan7nh88mkpl278mjc8
@@ -105,13 +67,9 @@ class AgendasController extends AppController
         $acl = $service->acl->listAcl('primary');
         $event = $service->events->get('primary', "tc2m2ackan7nh88mkpl278mjc8");
 
-        debug($event->start);
-
-
-        // debug($calendarList);
+        debug($event);
         exit;
         $this->set(compact('events'));
-        // $results = $service->events->listEvents($calId);
     }
 
     public function index()
