@@ -41,11 +41,10 @@ class UsersController extends AppController
                         'timeout' => 4320 // 3 dias
                     ]);
                 }
-
-                // $target = $this->Authentication->getLoginRedirect() ?? '/';
                 return $this->redirect('/');
             }
             if ($this->request->is('post') && !$result->isValid()) {
+                // debug($result);exit;
                 $this->Flash->error('Nome ou senha inválidos!');
             }
         }
