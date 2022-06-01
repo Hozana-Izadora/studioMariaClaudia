@@ -71,12 +71,14 @@ CREATE TABLE horarios
 );
 CREATE TABLE events (
   id_event serial NOT NULL PRIMARY KEY,
-  title varchar(255),
+  summary varchar(255),
+  colorId varchar(255),
   description text ,
+  htmlLink varchar(255),
   location varchar(255),
   date date NOT NULL,
-  time_from time NOT NULL,
-  time_to time NOT NULL,
+  time_start time NOT NULL,
+  time_end time NOT NULL,
   google_calendar_event_id varchar(255),
   created timestamp without time zone,
   modified timestamp without time zone    

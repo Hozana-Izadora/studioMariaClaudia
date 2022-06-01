@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use Google\Client as Google_Client;
 use Google\Service\Calendar as Google_Service_Calendar;
+use Google\Service\Calendar\Event as Google_Service_Calendar_Event;
 
 defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 /**
@@ -37,7 +38,7 @@ class AgendasController extends AppController
             // printf("Open the following link in your browser:\n%s\n", "<a href='$authUrl'>" . $authUrl . "</a>");
         }
 
-        if ($_SESSION['access_token']) {
+        if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
             $client->setAccessToken($_SESSION['access_token']);
         } else {
             $accessToken = $client->fetchAccessTokenWithAuthCode($_GET['code']);
@@ -67,9 +68,78 @@ class AgendasController extends AppController
         $acl = $service->acl->listAcl('primary');
         $event = $service->events->get('primary', "tc2m2ackan7nh88mkpl278mjc8");
 
-        debug($event);
-        exit;
-        $this->set(compact('events'));
+        // $newEvent = $this->create($service);
+        $listEvents = $this->importEvents($service);
+        debug($listEvents);exit;
+        // $this->set(compact('events'));
+    }
+    public function list($service){
+        $events = $service->events->listEvents('primary');
+
+        return $events->getItems();
+    }
+    public function create($service){
+        
+        $newEvent =  array(
+            'summary' => 'Google I/O 2015',
+            'location' => '800 Howard St., San Francisco, CA 94103',
+            'description' => 'A chance to hear more about Google\'s developer products.',
+            'start' => array(
+              'dateTime' => '2022-05-31T09:00:00-07:00',
+              'timeZone' => 'America/Los_Angeles',
+            ),
+            'end' => array(
+              'dateTime' => '2022-05-31T09:00:00-07:00',
+              'timeZone' => 'America/Los_Angeles',
+            ),
+            'recurrence' => array(
+              'RRULE:FREQ=DAILY;COUNT=2'
+            ),
+            'attendees' => array(
+              array('email' => 'lpage@example.com'),
+              array('email' => 'sbrin@example.com'),
+            ),
+            'reminders' => array(
+              'useDefault' => FALSE,
+              'overrides' => array(
+                array('method' => 'email', 'minutes' => 24 * 60),
+                array('method' => 'popup', 'minutes' => 10),
+              ),
+            ),
+        );
+          $event = new Google_Service_Calendar_Event($newEvent);
+          
+          $calendarId = 'primary';
+          $event = $service->events->insert($calendarId, $event);
+          return printf('Event created: %s\n', $event->htmlLink);
+          
+    }
+    public function importEvents($service){
+        $this->loadModel('Events');
+        $events = $this->Agendas->newEmptyEntity();
+
+        $listEvents = $this->list($service);
+        foreach($listEvents as $key=>$event){
+            $arrayEvents = array(
+                'summary' => $event->getSummary(),
+                'colorId' => $event->getColorId(),
+                'description' => $event->getDescription(),
+                'htmlLink' => $event->getHtmlLink(),
+                'location' => $event->getLocation(),
+                // 'date' ,
+                'time_start'=> $event->getStart()->dateTime,
+                'time_end'=> $event->getEnd()->dateTime,
+                'google_calendar_event_id'=> $event->getId(),
+            );
+        }
+        $events = $this->Events->patchEntity($events, $arrayEvents);
+        debug($this->Events->save($events));
+        if ($this->Events->save($events)) {
+           return $this->Flash->success(__('Eventos importados com sucesso!.'));
+
+        }
+       return $this->Flash->error(__('Os eventos não foram importados. Por favor, tente novamente.'));
+
     }
 
     public function index()
