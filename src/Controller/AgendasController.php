@@ -119,26 +119,27 @@ class AgendasController extends AppController
         $events = $this->Agendas->newEmptyEntity();
 
         $listEvents = $this->list($service);
-        foreach($listEvents as $key=>$event){
-            $arrayEvents = array(
+        foreach($listEvents as $event){
+            $arrayEvents[] = [
                 'summary' => $event->getSummary(),
                 'colorId' => $event->getColorId(),
                 'description' => $event->getDescription(),
                 'htmlLink' => $event->getHtmlLink(),
                 'location' => $event->getLocation(),
-                // 'date' ,
-                'time_start'=> $event->getStart()->dateTime,
-                'time_end'=> $event->getEnd()->dateTime,
+                // 'time_start'=> $event->start->dateTime,
+                // 'time_end'=> $event->end->dateTime,
                 'google_calendar_event_id'=> $event->getId(),
-            );
+            ];
         }
+        // debug($arrayEvents);
         $events = $this->Events->patchEntity($events, $arrayEvents);
-        debug($this->Events->save($events));
-        if ($this->Events->save($events)) {
-           return $this->Flash->success(__('Eventos importados com sucesso!.'));
+        debug($events);
+        // debug($this->Events->save($events));
+    //     if ($this->Events->save($events)) {
+    //        return $this->Flash->success(__('Eventos importados com sucesso!.'));
 
-        }
-       return $this->Flash->error(__('Os eventos não foram importados. Por favor, tente novamente.'));
+    //     }
+    //    return $this->Flash->error(__('Os eventos não foram importados. Por favor, tente novamente.'));
 
     }
 

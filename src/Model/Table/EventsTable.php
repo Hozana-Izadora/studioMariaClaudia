@@ -100,6 +100,11 @@ class EventsTable extends Table
             ->dateTime('time_end')
             ->requirePresence('time_end', 'create')
             ->notEmptyDateTime('time_end');
+        
+        $validator
+        ->scalar('google_calendar_event_id')
+        ->maxLength('google_calendar_event_id', 255)
+        ->allowEmptyString('google_calendar_event_id');
 
         return $validator;
     }
