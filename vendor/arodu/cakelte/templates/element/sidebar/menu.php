@@ -14,7 +14,7 @@
       </a>
     </li> 
     <li class="nav-item">
-      <a href="<?= $this->Url->build('/Clients/add') ?>" class="nav-link">
+      <a href="<?= $this->Url->build('/Atendimentos/add') ?>" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
         <p>Cadastrar</p>
       </a>
@@ -37,7 +37,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="<?= $this->Url->build('/Clients/add') ?>" class="nav-link">
+      <a href="<?= $this->Url->build('/Agendas/add') ?>" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
         <p>Cadastrar</p>
       </a>
