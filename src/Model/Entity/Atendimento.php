@@ -33,15 +33,7 @@ class Atendimento extends Entity
      * @var array
      */
     protected $_accessible = [
-        'agenda_id' => true,
-        'horario_id' => true,
-        'client_id' => true,
-        'service_id' => true,
-        'created' => true,
-        'modified' => true,
-        'agenda' => true,
-        'horario' => true,
-        'client' => true,
-        'service' => true,
+        '*'=>true,
+        'id_atendimento' = false
     ];
 }

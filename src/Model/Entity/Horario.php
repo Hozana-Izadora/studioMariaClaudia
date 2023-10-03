@@ -29,11 +29,7 @@ class Horario extends Entity
      * @var array
      */
     protected $_accessible = [
-        'hora' => true,
-        'agenda_id' => true,
-        'created' => true,
-        'modified' => true,
-        'agenda' => true,
-        'atendimentos' => true,
+        '*'=> true,
+        'id_horario'=>false
     ];
 }

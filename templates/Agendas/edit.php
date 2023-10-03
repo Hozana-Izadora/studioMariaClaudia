@@ -25,7 +25,7 @@ $this->assign('breadcrumb',
   <?= $this->Form->create($agenda) ?>
   <div class="card-body">
     <?php
-      echo $this->Form->control('data');
+      echo $this->Form->control('data',['type'=>'date']);
       echo $this->Form->control('ativo', ['custom' => true]);
     ?>
   </div>
